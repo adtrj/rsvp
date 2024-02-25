@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+  </head>
+  <body>
+    <script>
+      function myFunction() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://ceremony-api.withjoy.com/graphql");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        const body = JSON.stringify({
+          "query":"\nquery ($eventId: ID, $firstName: String!, $lastName: String!, $email: String!){\nevent(eventId: $eventId){\nfindPerson(\nemail: $email,\nfirstName: $firstName,\nlastName: $lastName\n){\npersonKey\nname\nfirstName\nlastName\n}\n}\n}\n",
+          "variables":{"eventId":"eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff","firstName":"New","lastName":"Personos","email":""}
+        });
+        xhr.onload = () => {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(JSON.parse(xhr.responseText).data.event.findPerson);
+          } else {
+            console.log(`Error: ${xhr.status}`);
+          }
+        };
+        xhr.send(body);
+      }
+    </script>
+    <button onclick="myFunction()">Click me</button>
+  </body>
+</html>
