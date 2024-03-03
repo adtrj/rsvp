@@ -1,7 +1,18 @@
-{
-  __schema {
-    types {
-      name
+query ($eventId: ID!){
+  event(eventId: $eventId) {
+    guestQuestions {
+      person {
+        householdId
+        personId: personKey
+        name
+      }
+      readableQuestions {
+        id
+        questionText
+        answer {
+          displayValue
+        }
+      }
     }
   }
 }

@@ -1,7 +1,10 @@
 #!/bin/bash
 RAWQUERY=$(<query.txt)
+VARIABLES=$(<variables.txt)
+HEADERS=$(<headers.txt)
 QUERY=${RAWQUERY//$'\n'/\\\\n}
-DATARAW='{"query":"'$QUERY'"}'
-echo $DATARAW
+DATARAW='{"query":"'$QUERY'","variables":'$VARIABLES'}'
 
-eval "curl 'https://ceremony-api.withjoy.com/graphql' -H 'content-type: application/json' --data-raw \$'"$DATARAW"'"
+REQUEST="curl 'https://ceremony-api.withjoy.com/graphql' -H 'content-type: application/json' "$HEADERS" --data-raw \$'"$DATARAW"'"
+echo $REQUEST
+eval $REQUEST
