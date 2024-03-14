@@ -6,21 +6,87 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ADTRJ</title>
     <link rel="icon" type="image/x-icon" href="res/favicon.ico">
+    <link rel="stylesheet" href="css/index.css">
     <script src="src/rsvp.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <form id="form">
-      <label for="fname">First name:</label>
-      <input type="text" id="fname" name="fname"><br><br>
-      <label for="lname">Last name:</label>
-      <input type="text" id="lname" name="lname"><br><br>
-      <button onclick="findMatchingGuest()">Find Guest</button>
-    </form>
-    <script type="text/javascript">
-      var form = document.getElementById("form");
-      function handleForm(event) { event.preventDefault(); } 
-      form.addEventListener('submit', handleForm);
-    </script>
-    <p id="output"></p>
+    <div class="header">
+      <span class="gravity-font">ADITI</span> <span class="maxi-font">&</span><br>
+      <span class="gravity-font">RAHUL'S</span><br>
+      <span class="maxi-font">EveNts</span>
+    </div>
+    <div class="scroll-tooltip">
+      <img src="res/scroll-tooltip.png" alt="Scroll Tooltip" width=80px>
+    </div>
+
+    <div class="row event">
+      <div class="row event-date-header">
+        <div class="col-10">
+          JAN 31-FEB 2, 2025
+        </div>
+        <div class="col-2 right-col">
+          Weekend
+        </div>
+      </div>
+      <div class="row event-title-interactive">
+        <div class="col-8 event-title">
+          <span class="gravity-font">Sri Lanka</span><br>
+          <span class="maxi-font">Getaway</span>
+        </div>
+        <div class="col-2 learn-more button-col">
+          Learn more
+        </div>
+        <div class="col-2 button-col">
+          RSVP
+        </div>
+      </div>
+    </div>
+
+    <div class="row event">
+      <div class="row event-date-header">
+        <div class="col-10">
+          FEB 7-9, 2025
+        </div>
+        <div class="col-2 right-col">
+          Weekend
+        </div>
+      </div>
+      <div class="row event-title-interactive">
+        <div class="col-8 event-title">
+          <span class="gravity-font">Bangalore</span><br>
+          <span class="maxi-font">Reception</span>
+        </div>
+        <div class="col-2 learn-more button-col">
+          Learn more
+        </div>
+        <div class="col-2 button-col">
+          RSVP
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <img src="res/red-tiger-bird.png" alt="ADTRJ">
+    </div>
+
+    <div>
+      <form id="form">
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname"><br><br>
+        <button onclick="findMatchingGuest()">Find Guest</button>
+      </form>
+      <script type="text/javascript">
+        var form = document.getElementById("form");
+        function handleForm(event) { event.preventDefault(); } 
+        form.addEventListener('submit', handleForm);
+      </script>
+      <p id="output"></p>
+    </div>
   </body>
 </html>
