@@ -40,7 +40,7 @@
           Learn more
         </div>
         <div class="col-2 button-col">
-          <div class="rsvp">
+          <div class="rsvp" onclick="showRsvpModal()">
             RSVP
           </div>
         </div>
@@ -65,7 +65,7 @@
           Learn more
         </div>
         <div class="col-2 button-col">
-          <div class="rsvp">
+          <div class="rsvp" onclick="showRsvpModal()">
             RSVP
           </div>
         </div>
@@ -77,13 +77,14 @@
       <img src="res/red-tiger-bird.png" alt="ADTRJ">
     </div>
 
-    <div>
+    <div id="modal-overlay" onclick="hideRsvpModal()"></div>
+    <div id="form-modal">
       <form id="form">
         <label for="fname">First name:</label>
         <input type="text" id="fname" name="fname"><br><br>
         <label for="lname">Last name:</label>
         <input type="text" id="lname" name="lname"><br><br>
-        <button onclick="findMatchingGuest()">Find Guest</button>
+        <button class="rsvp" onclick="findMatchingGuest()">Find Guest</button>
       </form>
       <script type="text/javascript">
         var form = document.getElementById("form");

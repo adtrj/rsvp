@@ -20,6 +20,10 @@
   font-family: "ABCMaxi", sans-serif;
 }
 
+button {
+  all: unset;
+}
+
  * {
   box-sizing: border-box;
 }
@@ -154,6 +158,8 @@ html {
   color: #8F001B;
   border-radius: 10px;
   padding: 1vh;
+  width: 100%;
+  text-align: center;
 }
 
 .footer {
@@ -167,4 +173,33 @@ html {
   .footer img {
     width: 40vw;
   }
+}
+
+#form-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #8F001B;
+  padding: 2vh;
+  border-style: solid;
+  z-index = 101;
+  display: none;
+  border-radius: 10px;
+  text-align: center;
+}
+#form-modal button {
+  width: 80%;
+}
+
+#modal-overlay {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.5;
+  z-index = 100;
+  background-color: #8F001B;
+  display: none;
 }

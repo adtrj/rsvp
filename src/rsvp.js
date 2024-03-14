@@ -99,3 +99,15 @@ function findMatchingGuest() {
   });
   request.send(body);
 }
+function showRsvpModal() {
+  const modal = document.getElementById("form-modal");
+  const overlay = document.getElementById("modal-overlay");
+  overlay.style.display = "unset";
+  modal.style.display = "unset";
+}
+function hideRsvpModal() {
+  const modal = document.getElementById("form-modal");
+  const overlay = document.getElementById("modal-overlay");
+  overlay.style.display = "none";
+  modal.style.display = "none";
+}
