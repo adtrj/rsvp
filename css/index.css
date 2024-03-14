@@ -42,7 +42,7 @@
   padding: 15px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (orientation: portrait) {
   /* For mobile phones: */
   [class*="col-"] {
     width: 100%;
@@ -55,22 +55,18 @@
   display: block;
 }
 
-.right-col {
-  text-align: right;
-}
-
-.button-col {
-  text-align: right;
-  cursor: pointer;
-  padding-top: 11vh;
-}
-
 html {
   font-family: "Inter", sans-serif;
   font-size: 28px;
   font-weight: 600;
   background-color: #8F001B;
   color: #F9B6C9;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  html {
+    font-size: 4vw;
+  }
 }
 
 .header {
@@ -79,7 +75,7 @@ html {
   padding: 15px;
   text-align: center;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (orientation: portrait) {
   /* For mobile phones: */
   .header {
     font-size: 15vw;
@@ -89,9 +85,9 @@ html {
 
 .scroll-tooltip {
   text-align: center;
-  margin-bottom: 5vh;
+  margin-bottom: 8vh;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (orientation: portrait) {
   /* For mobile phones: */
   .scroll-tooltip {
     display: none;
@@ -99,7 +95,7 @@ html {
 }
 
 .event {
-  margin: 5vh 8vh;
+  margin: 5vh 8vw;
   border-style: solid;
   border-radius: 10px;
   padding: 15px;
@@ -114,11 +110,50 @@ html {
   font-size: 72px;
   line-height: 90%;
 }
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .event-title {
+    font-size: 11vw;
+    line-height: 90%;
+    margin-bottom: 2vw;
+  }
+}
+
+.right-col {
+  text-align: right;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .right-col {
+    text-align: left;
+  }
+}
+
+.button-col {
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10vh;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .button-col {
+    margin-top: 1vw;
+    font-size: 5vw;
+  }
+}
 
 .learn-more {
   text-decoration: underline;
   padding-left: 0;
   padding-right: 0;
+  padding-top: 2vh;
+}
+
+.rsvp {
+  background-color: #F9B6C9;
+  color: #8F001B;
+  border-radius: 10px;
+  padding: 1vh;
 }
 
 .footer {
@@ -126,4 +161,10 @@ html {
 }
 .footer img {
   width: 40vh;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .footer img {
+    width: 40vw;
+  }
 }
