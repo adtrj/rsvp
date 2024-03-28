@@ -7,43 +7,39 @@
     <title>ADTRJ</title>
     <link rel="icon" type="image/x-icon" href="res/favicon.ico">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/events.css">
+    <link rel="stylesheet" href="css/getaway.css">
     <script src="src/rsvp.js"></script>
+    <script src="src/accordion.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body onload="loadFAQs()">
     <div class="header">
       <span class="gravity-font">ADITI</span> <span class="maxi-font">&</span><br>
       <span class="gravity-font">RAHUL'S</span><br>
-      <span class="maxi-font">EveNts</span>
+      <span class="maxi-font">GetaWay</span>
     </div>
     <div class="scroll-tooltip">
-      <img src="res/red-scroll-tooltip.png" alt="Scroll Tooltip" width=80px>
+      <img src="res/green-scroll-tooltip.png" alt="Scroll Tooltip" width=80px>
     </div>
 
     <div class="row event">
       <div class="row event-date-header">
         <div class="col-10">
-          JAN 31-FEB 2, 2025
+          JAN 31, 2025
         </div>
         <div class="col-2 right-col">
-          Weekend
+          Friday
         </div>
       </div>
       <div class="row event-title-interactive">
         <div class="col-8 event-title">
-          <span class="gravity-font">Sri Lanka</span><br>
-          <span class="maxi-font">Getaway</span>
+          <span class="gravity-font">Pizza Party</span><br>
+          <span class="maxi-font">The Villa Grounds</span>
         </div>
-        <div class="col-2 learn-more button-col" onClick="location.href='getaway.html';">
-          Learn more
-        </div>
-        <div class="col-2 button-col">
-          <div class="rsvp" onclick="showRsvpModal()">
-            RSVP
-          </div>
+        <div class="col-4 button-col">
+          Mingle time
         </div>
       </div>
     </div>
@@ -51,31 +47,54 @@
     <div class="row event">
       <div class="row event-date-header">
         <div class="col-10">
-          FEB 7-9, 2025
+          FEB 1, 2025
         </div>
         <div class="col-2 right-col">
-          Weekend
+          Saturday
         </div>
       </div>
       <div class="row event-title-interactive">
         <div class="col-8 event-title">
-          <span class="gravity-font">Bangalore</span><br>
-          <span class="maxi-font">Reception</span>
+          <span class="gravity-font">Wine & Dine</span><br>
+          <span class="maxi-font">Bentota Beach</span>
         </div>
-        <div class="col-2 learn-more button-col" onClick="location.href='reception.html';">
-          Learn more
-        </div>
-        <div class="col-2 button-col">
-          <div class="rsvp" onclick="showRsvpModal()">
-            RSVP
-          </div>
+        <div class="col-4 button-col">
+          Come ready to dance!
         </div>
       </div>
     </div>
 
+    <div class="rsvp">
+      <div class="rsvp-button" onclick="showRsvpModal()">
+        RSVP
+      </div>
+    </div>
+
+    <div id="faqs">
+      <div class="accordion">
+        <button class="accordion-btn">Question 1?</button>
+        <div class="panel">
+          <p>Answer to Question 1.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion-btn">Question 2?</button>
+        <div class="panel">
+          <p>Answer to Question 2.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion-btn">Question 3?</button>
+        <div class="panel">
+          <p>Answer to Question 3.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="footer">
-      <img src="res/red-tiger-bird.png" alt="ADTRJ">
+      <img src="res/green-tiger-bird-beach.png" alt="ADTRJ">
     </div>
 
     <div id="modal-overlay" onclick="hideRsvpModal()"></div>

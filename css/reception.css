@@ -1,0 +1,14 @@
+html {
+  background-color: #8F001B;
+  color: #F9B6C9;
+}
+
+.footer img {
+  width: 40vh;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .footer img {
+    width: 40vw;
+  }
+}

@@ -63,8 +63,6 @@ html {
   font-family: "Inter", sans-serif;
   font-size: 28px;
   font-weight: 600;
-  background-color: #8F001B;
-  color: #F9B6C9;
 }
 @media only screen and (orientation: portrait) {
   /* For mobile phones: */
@@ -118,7 +116,6 @@ html {
   /* For mobile phones: */
   .event-title {
     font-size: 11vw;
-    line-height: 90%;
     margin-bottom: 2vw;
   }
 }
@@ -134,8 +131,7 @@ html {
 }
 
 .button-col {
-  text-align: center;
-  cursor: pointer;
+  text-align: right;
   margin-top: 10vh;
 }
 @media only screen and (orientation: portrait) {
@@ -146,6 +142,21 @@ html {
   }
 }
 
+.rsvp-button {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 5vh;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .rsvp-button {
+    font-size: 7vw;
+  }
+}
+
 .learn-more {
   text-decoration: underline;
   padding-left: 0;
@@ -153,26 +164,8 @@ html {
   padding-top: 2vh;
 }
 
-.rsvp {
-  background-color: #F9B6C9;
-  color: #8F001B;
-  border-radius: 10px;
-  padding: 1vh;
-  width: 100%;
-  text-align: center;
-}
-
 .footer {
   text-align: center;
-}
-.footer img {
-  width: 40vh;
-}
-@media only screen and (orientation: portrait) {
-  /* For mobile phones: */
-  .footer img {
-    width: 40vw;
-  }
 }
 
 #form-modal {
@@ -202,4 +195,37 @@ html {
   z-index = 100;
   background-color: #8F001B;
   display: none;
+}
+
+/* FAQ accordion
+   ============= */
+
+#faqs {
+  margin: 5vh;
+}
+.accordion {
+  margin-bottom: 10px;
+}
+.accordion button {
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+.accordion button:hover {
+}
+.accordion button.active {
+}
+.accordion .panel {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  max-height: 0; /* Initially collapsed */
+  padding: 0 10px;
+}
+.accordion .panel p {
+  margin-top: 0;
+  margin-left: 20px;
 }

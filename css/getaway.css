@@ -1,0 +1,22 @@
+html {
+  background-color: #00591A;
+  color: #8CDBA7;
+}
+
+.rsvp {
+  text-align: center;
+}
+.rsvp-button {
+  background-color: #8CDBA7;
+  color: #00591A;
+}
+
+.footer img {
+  width: 70vh;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .footer img {
+    width: 60vw;
+  }
+}

@@ -1,0 +1,28 @@
+html {
+  background-color: #8F001B;
+  color: #F9B6C9;
+}
+
+.button-col {
+  text-align: center;
+  cursor: pointer;
+}
+
+.rsvp {
+  background-color: #F9B6C9;
+  color: #8F001B;
+  border-radius: 10px;
+  padding: 1vh;
+  width: 100%;
+  text-align: center;
+}
+
+.footer img {
+  width: 40vh;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .footer img {
+    width: 40vw;
+  }
+}
