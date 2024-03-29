@@ -23,7 +23,7 @@ function loadFAQs(expandButtonPng) {
 
   [1,2,3].forEach((i) => {
     const row = fromHTML('<div class="accordion">' +
-          '<button class="accordion-btn">' +
+          '<button class="accordion-btn noSelect">' +
           '<img src="'+ expandButtonPng +'" alt="expand">' +
           "Question " + i + "?" + '</button>' +
           '<div class="panel"> <p>' +

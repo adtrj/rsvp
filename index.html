@@ -37,11 +37,11 @@
           <span class="gravity-font">Sri Lanka</span><br>
           <span class="maxi-font">Getaway</span>
         </div>
-        <div class="col-2 learn-more button-col" onClick="location.href='getaway.html';">
+        <div class="col-2 learn-more button-col noSelect" onClick="location.href='getaway.html';">
           Learn more
         </div>
         <div class="col-2 button-col">
-          <div class="rsvp" onclick="showRsvpModal()">
+          <div class="rsvp noSelect" onclick="showRsvpModal()">
             RSVP
           </div>
         </div>
@@ -62,10 +62,10 @@
           <span class="gravity-font">Bangalore</span><br>
           <span class="maxi-font">Reception</span>
         </div>
-        <div class="col-2 learn-more button-col" onClick="location.href='reception.html';">
+        <div class="col-2 learn-more button-col noSelect" onClick="location.href='reception.html';">
           Learn more
         </div>
-        <div class="col-2 button-col">
+        <div class="col-2 button-col noSelect">
           <div class="rsvp" onclick="showRsvpModal()">
             RSVP
           </div>
@@ -85,7 +85,7 @@
         <input type="text" id="fname" name="fname"><br><br>
         <label for="lname">Last name:</label>
         <input type="text" id="lname" name="lname"><br><br>
-        <button class="rsvp" onclick="findMatchingGuest()">Find Guest</button>
+        <button class="rsvp noSelect" onclick="findMatchingGuest()">Find Guest</button>
       </form>
       <script type="text/javascript">
         var form = document.getElementById("form");
