@@ -10,11 +10,11 @@ html {
 
 .footer img {
   margin-top: 10vh;
-  width: 70vh;
+  width: 55vh;
 }
 @media only screen and (orientation: portrait) {
   /* For mobile phones: */
   .footer img {
-    width: 60vw;
+    width: 55vw;
   }
 }

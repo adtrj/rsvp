@@ -27,7 +27,7 @@
    ============= */
 
 .noSelect {
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: thin dotted;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -163,13 +163,14 @@ html {
 @media only screen and (orientation: portrait) {
   /* For mobile phones: */
   .button-col {
-    margin-top: 1vw;
+    margin-top: 0;
     font-size: 5vw;
   }
 }
 
 .rsvp {
   text-align: center;
+  font-weight: 700;
 }
 
 .rsvp-button {
@@ -177,7 +178,6 @@ html {
   padding: 10px;
   border-radius: 10px;
   font-size: 48px;
-  font-weight: 700;
   margin: 5vh;
 }
 @media only screen and (orientation: portrait) {
