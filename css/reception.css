@@ -1,14 +1,20 @@
 html {
+  background-color: #FF8D00;
+  color: #8F001B;
+}
+
+.rsvp-button {
   background-color: #8F001B;
-  color: #F9B6C9;
+  color: #FF8D00;
 }
 
 .footer img {
-  width: 40vh;
+  margin-top: 10vh;
+  width: 70vh;
 }
 @media only screen and (orientation: portrait) {
   /* For mobile phones: */
   .footer img {
-    width: 40vw;
+    width: 60vw;
   }
 }

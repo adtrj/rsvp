@@ -127,12 +127,16 @@ html {
   /* For mobile phones: */
   .right-col {
     text-align: left;
+    margin-top: -2vw;
+    padding-top: 0;
+    font-weight: 500;
   }
 }
 
 .button-col {
   text-align: right;
   margin-top: 10vh;
+  font-weight: 500;
 }
 @media only screen and (orientation: portrait) {
   /* For mobile phones: */
@@ -140,6 +144,10 @@ html {
     margin-top: 1vw;
     font-size: 5vw;
   }
+}
+
+.rsvp {
+  text-align: center;
 }
 
 .rsvp-button {
@@ -202,6 +210,23 @@ html {
 
 #faqs {
   margin: 5vh;
+  font-size: 48px;
+  font-weight: 500;
+  padding-left: 5vw;
+}
+#faqs img {
+  height: 40px;
+  padding-right: 2vw;
+}
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  #faqs {
+    font-size: 7vw;
+    margin: 5vw;
+  }
+  #faqs img {
+    height: 5vw;
+  }
 }
 .accordion {
   margin-bottom: 10px;

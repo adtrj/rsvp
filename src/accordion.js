@@ -18,15 +18,19 @@ function fromHTML(html, trim = true) {
   if (result.length === 1) return result[0];
   return result;
 }
-function loadFAQs() {
+function loadFAQs(expandButtonPng) {
   const faqs = document.getElementById("faqs");
 
-  const row = fromHTML('<div class="accordion">' +
-        '<button class="accordion-btn">' + "Question 5?" + '</button>' +
-        '<div class="panel">' +
-        '<p>' + "Answer to Question 5." + '</p></div></div>');
-
-  faqs.append(row);
+  [1,2,3].forEach((i) => {
+    const row = fromHTML('<div class="accordion">' +
+          '<button class="accordion-btn">' +
+          '<img src="'+ expandButtonPng +'" alt="expand">' +
+          "Question " + i + "?" + '</button>' +
+          '<div class="panel"> <p>' +
+          "Answer to Question " + i + "." +
+          '</p></div></div>');
+    faqs.append(row);
+  });
 
   var accordionButtons = document.querySelectorAll('.accordion-btn');
   var accordionPanels = document.querySelectorAll('.panel');
