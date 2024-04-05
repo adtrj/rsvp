@@ -1,3 +1,7 @@
+function scrollToBtf() {
+  const firstEvent = document.getElementsByClassName("event")[0];
+  firstEvent.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 function updateText(text) {
   const para = document.getElementById("output");
   para.innerText = text;
@@ -110,4 +114,12 @@ function hideRsvpModal() {
   const overlay = document.getElementById("modal-overlay");
   overlay.style.display = "none";
   modal.style.display = "none";
+}
+function showBottomSheet() {
+  document.getElementById('bottomSheet').classList.add('open');
+  document.getElementById("modal-overlay").style.display = "unset";
+}
+function hideBottomSheet() {
+  document.getElementById('bottomSheet').classList.remove('open');
+  document.getElementById("modal-overlay").style.display = "none";
 }

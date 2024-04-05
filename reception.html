@@ -21,7 +21,7 @@
       <span class="maxi-font">REcePtion</span>
     </div>
     <div class="scroll-tooltip">
-      <img src="res/yellow-scroll-tooltip.png" alt="Scroll Tooltip" width=80px>
+      <img src="res/yellow-scroll-tooltip.png" alt="Scroll Tooltip" width=80px onclick="scrollToBtf()">
     </div>
 
     <div class="row event">
@@ -65,7 +65,7 @@
     </div>
 
     <div class="rsvp">
-      <div class="rsvp-button noSelect" onclick="showRsvpModal()">
+      <div class="rsvp-button noSelect" onclick="showBottomSheet()">
         RSVP
       </div>
     </div>
@@ -76,7 +76,14 @@
       <img src="res/yellow-tiger-bird.png" alt="ADTRJ">
     </div>
 
-    <div id="modal-overlay" onclick="hideRsvpModal()"></div>
+    <div id="bottomSheet" class="bottom-sheet">
+      <div class="bottom-sheet-content">
+        <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
+        <p>This is the content of the bottom sheet.</p>
+      </div>
+    </div>
+
+    <div id="modal-overlay" onclick="hideBottomSheet()"></div>
     <div id="form-modal">
       <form id="form">
         <label for="fname">First name:</label>

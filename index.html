@@ -20,7 +20,7 @@
       <span class="maxi-font">EveNts</span>
     </div>
     <div class="scroll-tooltip">
-      <img src="res/red-scroll-tooltip.png" alt="Scroll Tooltip" width=80px>
+      <img src="res/red-scroll-tooltip.png" alt="Scroll Tooltip" width=80px onclick="scrollToBtf()">
     </div>
 
     <div class="row event">
@@ -40,8 +40,8 @@
         <div class="col-2 learn-more button-col noSelect" onClick="location.href='getaway.html';">
           Learn more
         </div>
-        <div class="col-2 button-col">
-          <div class="rsvp noSelect" onclick="showRsvpModal()">
+        <div class="col-2 button-col noSelect">
+          <div class="rsvp noSelect" onclick="showBottomSheet()">
             RSVP
           </div>
         </div>
@@ -66,19 +66,25 @@
           Learn more
         </div>
         <div class="col-2 button-col noSelect">
-          <div class="rsvp" onclick="showRsvpModal()">
+          <div class="rsvp" onclick="showBottomSheet()">
             RSVP
           </div>
         </div>
       </div>
     </div>
 
-
     <div class="footer">
       <img src="res/red-tiger-bird.png" alt="ADTRJ">
     </div>
 
-    <div id="modal-overlay" onclick="hideRsvpModal()"></div>
+    <div id="bottomSheet" class="bottom-sheet">
+      <div class="bottom-sheet-content">
+        <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
+        <p>This is the content of the bottom sheet.</p>
+      </div>
+    </div>
+
+    <div id="modal-overlay" onclick="hideBottomSheet()"></div>
     <div id="form-modal">
       <form id="form">
         <label for="fname">First name:</label>
