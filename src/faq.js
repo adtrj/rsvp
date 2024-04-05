@@ -18,19 +18,32 @@ function fromHTML(html, trim = true) {
   if (result.length === 1) return result[0];
   return result;
 }
-function loadFAQs(expandButtonPng) {
-  const faqs = document.getElementById("faqs");
+async function loadFAQs(faqTxt, expandButtonPng) {
+  const faqsDiv = document.getElementById("faqs");
 
-  [1,2,3].forEach((i) => {
-    const row = fromHTML('<div class="accordion">' +
-          '<button class="accordion-btn noSelect">' +
-          '<img src="'+ expandButtonPng +'" alt="expand">' +
-          "Question " + i + "?" + '</button>' +
-          '<div class="panel"> <p>' +
-          "Answer to Question " + i + "." +
-          '</p></div></div>');
-    faqs.append(row);
-  });
+  await fetch(faqTxt)
+    .then((res) => res.text())
+    .then((text) => {
+      const lines = text.split(/\r?\n|\r|\n/g).map((line) => line.trim());
+      const faqs = lines.reduce((accumulator, currentValue, currentIndex, array) => {
+        if (currentIndex % 2 === 0) {
+          accumulator.push(array.slice(currentIndex, currentIndex + 2));
+        }
+        return accumulator;
+      }, []);
+
+      faqs.forEach((faq) => {
+        const row = fromHTML('<div class="accordion">' +
+              '<button class="accordion-btn noSelect">' +
+              '<img src="'+ expandButtonPng +'" alt="expand">' +
+              faq[0] + '</button>' +
+              '<div class="panel"> <p>' +
+              faq[1] +
+              '</p></div></div>');
+        faqsDiv.append(row);
+      });
+    })
+    .catch((e) => console.error(e));
 
   var accordionButtons = document.querySelectorAll('.accordion-btn');
   var accordionPanels = document.querySelectorAll('.panel');
