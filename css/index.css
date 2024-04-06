@@ -81,6 +81,11 @@ button {
 /* General CSS
    =========== */
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 html {
   font-family: "Inter", sans-serif;
   font-size: 28px;
@@ -299,14 +304,15 @@ html {
   bottom: 0;
   width: 100%;
   height: 0;
-  background-color: #f0f0f0;
+  border-radius: 10px 10px 0 0;
+  border-style: solid;
   overflow: hidden;
   transition: height 0.3s ease;
   z-index: 1000;
 }
 
 .bottom-sheet-content {
-  padding: 20px;
+  padding: 20px 30px;
 }
 
 .close-btn {
@@ -314,7 +320,37 @@ html {
   font-size: 28px;
   cursor: pointer;
 }
+@media only screen and (orientation: portrait) {
+  /* For mobile phones: */
+  .close-btn {
+    font-size: 6vw;
+  }
+}
 
 .bottom-sheet.open {
-  height: 40%;
+  height: 55%;
+}
+
+.bottom-sheet input {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0 20px;
+  border: 0;
+  font-family: "ABCGravity", sans-serif;
+}
+
+.bottom-sheet form {
+  margin-top: 2vh;
+}
+
+.bottom-sheet button {
+  float: right;
+  border-radius: 10px;
+  padding: 1vh;
+  margin-top: 2vh;
+}
+
+.bottom-sheet #output {
+  float: left;
 }

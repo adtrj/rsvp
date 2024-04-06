@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="color">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
     </div>
 
     <div class="rsvp">
-      <div class="rsvp-button noSelect" onclick="showBottomSheet()">
+      <div class="rsvp-button noSelect reverseColor" onclick="showBottomSheet()">
         RSVP
       </div>
     </div>
@@ -76,10 +76,20 @@
       <img src="res/yellow-tiger-bird.png" alt="ADTRJ">
     </div>
 
-    <div id="bottomSheet" class="bottom-sheet">
+    <div id="bottomSheet" class="bottom-sheet reverseColor">
       <div class="bottom-sheet-content">
+        RSVP
         <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
-        <p>This is the content of the bottom sheet.</p>
+
+        <form id="form">
+          <label for="fname" class="event-title"><span class="gravity-font">First</span> <span class="maxi-font">Name</span></label><br>
+          <input type="text" class="event-title color" id="fname" name="fname"><br><br>
+          <label for="lname" class="event-title"><span class="gravity-font">Last</span> <span class="maxi-font">Name</span></label><br>
+          <input type="text" class="event-title color" id="lname" name="lname"><br>
+          <p id="output"></p>
+          <button class="rsvp noSelect color" onclick="findMatchingGuest()">ENTER</button>
+        </form>
+
       </div>
     </div>
 
