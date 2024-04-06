@@ -22,7 +22,7 @@
 .footer img {
   width: 40vh;
 }
-@media only screen and (orientation: portrait) {
+@media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .footer img {
     width: 40vw;
