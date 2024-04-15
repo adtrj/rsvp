@@ -324,7 +324,8 @@ html {
 }
 
 .bottom-sheet-content {
-  padding: 20px 30px;
+  padding: 3vh 3vw;
+  margin: 0 15px 15px 15px;
 }
 
 .close-btn {
@@ -340,13 +341,13 @@ html {
 }
 
 .bottom-sheet.open {
-  height: 55%;
+  height: auto;
 }
 
 .bottom-sheet input {
   margin-top: 10px;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 0 20px;
   border: 0;
   font-family: "ABCGravity", sans-serif;
@@ -358,11 +359,89 @@ html {
 
 .bottom-sheet button {
   float: right;
-  border-radius: 10px;
-  padding: 1vh;
+  border-radius: 5px;
+  padding: 2px 3vw;
   margin-top: 2vh;
+  margin-bottom: 3vh;
+  width: unset;
 }
 
 .bottom-sheet #output {
   float: left;
+}
+
+.rsvp-answers {
+  display: flex;
+}
+.rsvp-answers label {
+  font-family: "ABCGravity", sans-serif;
+}
+
+.radio-buttons {
+  width: 50%;
+  margin-left: auto;
+  margin-right: 0;
+}
+.radio-buttons label {
+  padding-top: 50px;
+}
+
+/* square radio buttons */
+
+.sq-radio {
+  margin-left: auto;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.sq-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: -4vh;
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  background-color: #fff;
+  border-style: solid;
+  border-width: 2px;
+}
+
+/* When the radio button is checked, add a blue background 
+.sq-radio input:checked ~ .checkmark {
+  background-color: #241d25;
+}
+*/
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.sq-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.sq-radio .checkmark:after {
+  top: 7px;
+  left: 7px;
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+  background-color: #241d25;
 }

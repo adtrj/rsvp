@@ -76,6 +76,63 @@ function displayGuestDetails() {
   const urlParams = new URLSearchParams(window.location.search);
   const guestId = urlParams.get("id");
   queryGuestDetails(guestId, (guestQuestions) => {
+    /*
+[
+  {
+    "person": {
+      "householdId": "person-invitee-NrWtyR7vkrJ2H9Ox3rx",
+      "personId": "person-invitee-NrWtyR7vkrJ2H9Ox3rx",
+      "name": "Rahul Jaisimha"
+    },
+    "readableQuestions": [
+      {
+        "id": "rsvp",
+        "questionText": "Will you be able to join us at our wedding? Kindly reply by the date of ____.",
+        "answer": {
+          "displayValue": "Y"
+        }
+      },
+      {
+        "id": "address",
+        "questionText": "What is your mailing address?",
+        "answer": {
+          "displayValue": "address"
+        }
+      },
+      {
+        "id": "funFact",
+        "questionText": "Notes",
+        "answer": {
+          "displayValue": "love"
+        }
+      }
+    ]
+  },
+  {
+    "person": {
+      "householdId": "person-invitee-NrWtyR7vkrJ2H9Ox3rx",
+      "personId": "person-invitee-NrWtyV7hSV8I4xiP9dh",
+      "name": "Aditi Verma"
+    },
+    "readableQuestions": [
+      {
+        "id": "rsvp",
+        "questionText": "Will you be able to join us at our wedding? Kindly reply by the date of ____.",
+        "answer": {
+          "displayValue": "Y"
+        }
+      },
+      {
+        "id": "funFact",
+        "questionText": "Notes",
+        "answer": {
+          "displayValue": "boogaloo"
+        }
+      }
+    ]
+  }
+]
+    */
     guestQuestions.forEach((guestQuestion) => {
       const guestId = guestQuestion.person.personId;
       const guestName = guestQuestion.person.name;
@@ -103,6 +160,96 @@ function findMatchingGuest() {
   });
   request.send(body);
 }
+function sendRsvp() {
+  const fname = document.getElementById("fname").value;
+  const lname = document.getElementById("lname").value;
+  const inviteeId = "-inviteeId"; // TODO
+  const request = new XMLHttpRequest();
+  request.open("POST", 'https://ceremony-api.withjoy.com/events/eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff/invites/' + inviteeId + '/sendRSVPCompleteToUser');
+  request.setRequestHeader("Content-Type", "application/json");
+  request.onload = () => {
+    if (request.readyState == 4 && request.status == 200) {
+      console.log(JSON.parse(request.responseText)); // TODO
+    } else {
+      console.log(`Error: ${request.status}`);
+    }
+  };
+  const body = JSON.stringify({
+    "targetInviteeData": {
+      "name": fname + " " + lname,
+      "email": "",
+      "personKey": "person-invitee" + inviteeId,
+      "keys": {
+        "userIds": [],
+        "inviteeIds": [
+          inviteeId
+        ]
+      }
+    },
+    "rsvpResponses": [
+      {
+        "key": "contact",
+        "question": "What is your contact info?",
+        "title": "Contact Info",
+        "answer": {
+          "personKey": "person-invitee" + inviteeId,
+          "name": fname + " " + lname,
+          "email": "",
+          "keys": {
+            "users": [],
+            "invitees": [
+              inviteeId
+            ]
+          }
+        }
+      },
+      {
+        "key": "rsvp",
+        "question": "Will you be able to join us at our wedding? Kindly reply by the date of ____.",
+        "title": "RSVP",
+        "answer": "Joyfully Accept",
+        "boolean_answer": true
+      },
+      {
+        "key": "-LvD1AMEDA1DPQxInyTz",
+        "question": "What entree would you prefer at our wedding?",
+        "title": "Meal / Wedding",
+        "answer": "Chicken"
+      },
+      {
+        "key": "-LvEh_DkUNtymnoeO0H0",
+        "question": "Would you like a hotel room through our room block?",
+        "title": "Hotel Room",
+        "answer": "Yes, two queen beds"
+      },
+      {
+        "key": "address",
+        "question": "What is your mailing address?",
+        "title": "Mailing Address",
+        "answer": "hello"
+      },
+      {
+        "key": "funFact",
+        "question": "Share how you know the couple, wish them well or some wisdom for the future!",
+        "title": "How do you know...",
+        "answer": "nah"
+      }
+    ],
+    "getTheAppLinkData": {
+      "eventId": "eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff",
+      "firstName": fname,
+      "lastName": lname,
+      "email": "",
+      "personKey": "person-invitee" + inviteeId,
+      "personData": {
+        "userIds": [],
+        "inviteeIds": [
+          inviteeId
+        ]
+      }
+    }
+  });
+}
 function showRsvpModal() {
   const modal = document.getElementById("form-modal");
   const overlay = document.getElementById("modal-overlay");
@@ -116,10 +263,12 @@ function hideRsvpModal() {
   modal.style.display = "none";
 }
 function showBottomSheet() {
-  document.getElementById('bottomSheet').classList.add('open');
+  const bottomSheet = document.getElementById('bottomSheet')
+  bottomSheet.style.height = bottomSheet.scrollHeight + "px";
   document.getElementById("modal-overlay").style.display = "unset";
 }
 function hideBottomSheet() {
   document.getElementById('bottomSheet').classList.remove('open');
+  bottomSheet.style.height = "0";
   document.getElementById("modal-overlay").style.display = "none";
 }
