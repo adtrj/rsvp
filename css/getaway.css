@@ -8,6 +8,10 @@
   color: #00591A;
 }
 
+.sq-radio .checkmark:after {
+  background-color: #00591A;
+}
+
 .footer img {
   margin-top: 10vh;
   width: 70vh;

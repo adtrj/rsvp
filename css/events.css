@@ -8,6 +8,10 @@
   color: #8F001B;
 }
 
+.sq-radio .checkmark:after {
+  background-color: #8F001B;
+}
+
 .button-col {
   text-align: center;
   cursor: pointer;
