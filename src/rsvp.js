@@ -152,6 +152,7 @@ async function updateRsvpFormWithGuestInfo(guestId) {
   // Get guest details from guestId
   const guestQuestions = await queryGuestDetails(guestId);
   guestQuestions.forEach((guestQuestion, index, array) => {
+    const personId = guestQuestion.person.personId;
     const guestName = guestQuestion.person.name;
     const guestFirstName = guestQuestion.person.firstName;
     const guestLastName = guestQuestion.person.lastName;
@@ -161,10 +162,10 @@ async function updateRsvpFormWithGuestInfo(guestId) {
 
     const guestDetails = fromHTML('<div class="rsvp-answers"><div><span class="gravity-font">' + guestFirstName +
       '</span><br><span class="maxi-font">' + guestLastName +
-      '</span></div><div class="radio-buttons rsvp-answers"><label class="sq-radio" for="yes-' + guestId +
-      '">Yes<input type="radio" id="yes-' + guestId + '" name="rsvp-' + guestId +
-      '" value="Yes" checked="checked"><span class="checkmark"></span></label><label class="sq-radio" for="no-' + guestId +
-      '">No<input type="radio" id="no-' + guestId + '" name="rsvp-' + guestId +
+      '</span></div><div class="radio-buttons rsvp-answers"><label class="sq-radio" for="yes-' + personId +
+      '">Yes<input type="radio" id="yes-' + personId + '" name="rsvp-' + personId +
+      '" value="Yes" checked="checked"><span class="checkmark"></span></label><label class="sq-radio" for="no-' + personId +
+      '">No<input type="radio" id="no-' + personId + '" name="rsvp-' + personId +
       '" value="No"><span class="checkmark"></span></label></div></div>');
     newForm.appendChild(guestDetails);
     if (index !== array.length - 1){ 
