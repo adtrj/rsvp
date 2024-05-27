@@ -82,6 +82,7 @@
         <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
 
         <form id="form">
+          <input type="hidden" id="metadata" name="metadata" value='["person-invitee-NrWtyR7vkrJ2H9Ox3rx", "person-invitee-NrWtyV7hSV8I4xiP9dh"]'>
           <div class="rsvp-answers">
             <div>
               <span class="gravity-font">Rahul</span><br>
@@ -117,6 +118,8 @@
               </label>
             </div>
           </div>
+          <p id="output"></p>
+          <button class="rsvp noSelect color" onclick="findMatchingGuest()">ENTER</button>
         </form>
 
       </div>

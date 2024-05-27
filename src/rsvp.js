@@ -143,44 +143,86 @@ function displayGuestDetails() {
     });
   });
 }
+function getAnswers(guestQuestion) {
+  return Object.assign({}, ...guestQuestion.readableQuestions.map((question) => ({[question.id]: question.answer.displayValue})));
+}
 async function updateRsvpFormWithGuestInfo(guestId) {
 
   const form = document.getElementById("form");
   const parentElement = form.parentElement;
   const newForm = fromHTML('<form id="form"></form>');
 
+  function handleForm(event) { event.preventDefault(); } 
+  newForm.addEventListener('submit', handleForm);
+
   // Get guest details from guestId
   const guestQuestions = await queryGuestDetails(guestId);
+
+  form.remove();
+  parentElement.appendChild(newForm);
+
+  const metadata = JSON.stringify(guestQuestions);
+  const metadataInput = fromHTML('<input type="hidden" id="metadata" name="metadata" value=\'' + metadata + '\'>');
+  newForm.appendChild(metadataInput);
+
   guestQuestions.forEach((guestQuestion, index, array) => {
     const personId = guestQuestion.person.personId;
     const guestName = guestQuestion.person.name;
     const guestFirstName = guestQuestion.person.firstName;
     const guestLastName = guestQuestion.person.lastName;
-    const answers = Object.assign({}, ...guestQuestion.readableQuestions.map((question) => ({[question.id]: question.answer.displayValue})));
-
-    console.log(guestName + guestId + JSON.stringify(answers)); // TODO remove log
+    const answers = getAnswers(guestQuestion);
 
     const guestDetails = fromHTML('<div class="rsvp-answers"><div><span class="gravity-font">' + guestFirstName +
       '</span><br><span class="maxi-font">' + guestLastName +
       '</span></div><div class="radio-buttons rsvp-answers"><label class="sq-radio" for="yes-' + personId +
       '">Yes<input type="radio" id="yes-' + personId + '" name="rsvp-' + personId +
-      '" value="Yes" checked="checked"><span class="checkmark"></span></label><label class="sq-radio" for="no-' + personId +
+      '" value="Yes"><span class="checkmark"></span></label><label class="sq-radio" for="no-' + personId +
       '">No<input type="radio" id="no-' + personId + '" name="rsvp-' + personId +
       '" value="No"><span class="checkmark"></span></label></div></div>');
+
     newForm.appendChild(guestDetails);
+
+    if (answers["rsvp"] === "Y") {
+      const button = document.getElementById("yes-" + personId);
+      button.setAttribute("checked", "checked");
+    }
+    if (answers["rsvp"] === "N") {
+      const button = document.getElementById("no-" + personId);
+      button.setAttribute("checked", "checked");
+    }
+
     if (index !== array.length - 1){ 
       const andDelimiter = fromHTML('<div class="rsvp-and">AND</div>');
       newForm.appendChild(andDelimiter);
     }
   });
 
-  form.remove();
-  parentElement.appendChild(newForm);
+  const outputText = fromHTML('<p id="output"></p>');
+  const submitButton = fromHTML('<button class="rsvp noSelect color" onclick="saveGuestResponse()">ENTER</button>');
+  newForm.appendChild(outputText);
+  newForm.appendChild(submitButton);
 
   // resize bottom sheet to new height
   const bottomSheet = document.getElementById('bottomSheet');
   const bottomSheetContent = document.getElementById('bottomSheetContent');
-  bottomSheet.style.height = bottomSheetContent.scrollHeight + "px";
+  bottomSheet.style.height = (bottomSheetContent.scrollHeight + 28) + "px"; // Don't know why but the submit button isn't being factored in
+}
+async function saveGuestResponse(bangalore) {
+  updateText("Saving...");
+  const guestQuestions = JSON.parse(document.getElementById("metadata").value);
+  const promises = [];
+  guestQuestions.forEach((guestQuestion, index, array) => {
+    const personId = guestQuestion.person.personId;
+    const guestName = guestQuestion.person.name;
+    const guestFirstName = guestQuestion.person.firstName;
+    const guestLastName = guestQuestion.person.lastName;
+    const answers = getAnswers(guestQuestion);
+    const rsvpSelection = document.querySelector('input[name="rsvp-' + personId + '"]:checked').value === "Yes";
+    const bangaloreRsvp = bangalore ? "Y" : "N";
+    promises.push(sendRsvp(guestFirstName, guestLastName, personId, rsvpSelection, bangaloreRsvp));
+  });
+  await Promise.all(promises);
+  updateText("Saved");
 }
 async function findMatchingGuest() {
   updateText("Loading...");
@@ -214,94 +256,89 @@ async function findMatchingGuest() {
     updateText("No guest found with name " + fname + " " + lname);
   }
 }
-function sendRsvp() {
-  const fname = document.getElementById("fname").value;
-  const lname = document.getElementById("lname").value;
-  const inviteeId = "-inviteeId"; // TODO
-  const request = new XMLHttpRequest();
-  request.open("POST", 'https://ceremony-api.withjoy.com/events/eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff/invites/' + inviteeId + '/sendRSVPCompleteToUser');
-  request.setRequestHeader("Content-Type", "application/json");
-  request.onload = () => {
-    if (request.readyState == 4 && request.status == 200) {
-      console.log(JSON.parse(request.responseText)); // TODO
-    } else {
-      console.log(`Error: ${request.status}`);
-    }
-  };
-  const body = JSON.stringify({
-    "targetInviteeData": {
-      "name": fname + " " + lname,
-      "email": "",
-      "personKey": "person-invitee" + inviteeId,
-      "keys": {
-        "userIds": [],
-        "inviteeIds": [
-          inviteeId
-        ]
+function sendRsvp(fname, lname, personId, rsvpSelection, bangaloreRsvp) {
+  const inviteeId = personId.replace('person-invitee', '');
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.open("POST", 'https://ceremony-api.withjoy.com/events/eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff/invites/' + inviteeId + '/sendRSVPCompleteToUser');
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onload = () => {
+      if (request.readyState == 4 && request.status == 200) {
+        resolve(request.responseText);
+      } else {
+        reject(`Error: ${request.status}`);
       }
-    },
-    "rsvpResponses": [
-      {
-        "key": "contact",
-        "question": "What is your contact info?",
-        "title": "Contact Info",
-        "answer": {
-          "personKey": "person-invitee" + inviteeId,
-          "name": fname + " " + lname,
-          "email": "",
-          "keys": {
-            "users": [],
-            "invitees": [
-              inviteeId
-            ]
-          }
+    };
+    const body = JSON.stringify({
+      "targetInviteeData": {
+        "name": fname + " " + lname,
+        "email": "",
+        "personKey": "person-invitee" + inviteeId,
+        "keys": {
+          "userIds": [],
+          "inviteeIds": [
+            inviteeId
+          ]
         }
       },
-      {
-        "key": "rsvp",
-        "question": "Will you be able to join us at our wedding? Kindly reply by the date of ____.",
-        "title": "RSVP",
-        "answer": "Joyfully Accept",
-        "boolean_answer": true
-      },
-      {
-        "key": "-LvD1AMEDA1DPQxInyTz",
-        "question": "What entree would you prefer at our wedding?",
-        "title": "Meal / Wedding",
-        "answer": "Chicken"
-      },
-      {
-        "key": "-LvEh_DkUNtymnoeO0H0",
-        "question": "Would you like a hotel room through our room block?",
-        "title": "Hotel Room",
-        "answer": "Yes, two queen beds"
-      },
-      {
-        "key": "address",
-        "question": "What is your mailing address?",
-        "title": "Mailing Address",
-        "answer": "hello"
-      },
-      {
-        "key": "funFact",
-        "question": "Share how you know the couple, wish them well or some wisdom for the future!",
-        "title": "How do you know...",
-        "answer": "nah"
+      "rsvpResponses": [
+        {
+          "key": "contact",
+          "question": "What is your contact info?",
+          "title": "Contact Info",
+          "answer": {
+            "personKey": "person-invitee" + inviteeId,
+            "name": fname + " " + lname,
+            "email": "",
+            "keys": {
+              "users": [],
+              "invitees": [
+                inviteeId
+              ]
+            }
+          }
+        },
+        {
+          "key": "rsvp",
+          "question": "Will you be able to join us at our wedding? Kindly reply by the date of ____.",
+          "title": "RSVP",
+          "answer": "Joyfully Accept",
+          "boolean_answer": rsvpSelection
+        },
+        {
+          "key": "address",
+          "question": "When does your flight arrive?",
+          "title": "arrival",
+          "answer": ""
+        },
+        {
+          "key": "funFact",
+          "question": "When does your flight depart?",
+          "title": "departure",
+          "answer": ""
+        },
+        {
+          "key": "-NvTpKRM_M8iI6U5AVO2",
+          "question": "Will you be attending Bangalore?",
+          "title": "Bangalore",
+          "answer": bangaloreRsvp
+        }
+      ],
+      "getTheAppLinkData": {
+        "eventId": "eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff",
+        "firstName": fname,
+        "lastName": lname,
+        "email": "",
+        "personKey": "person-invitee" + inviteeId,
+        "personData": {
+          "userIds": [],
+          "inviteeIds": [
+            inviteeId
+          ]
+        }
       }
-    ],
-    "getTheAppLinkData": {
-      "eventId": "eeead714910ff206bf0cb4fccd51adad6961ca37af9c87eff",
-      "firstName": fname,
-      "lastName": lname,
-      "email": "",
-      "personKey": "person-invitee" + inviteeId,
-      "personData": {
-        "userIds": [],
-        "inviteeIds": [
-          inviteeId
-        ]
-      }
-    }
+    });
+    request.send(body);
   });
 }
 function showRsvpModal() {
