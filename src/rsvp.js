@@ -45,13 +45,13 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
     const personId = guest.firstName + "-" + guest.lastName;
     const rsvp = bangalore ? guest.bangaloreRsvp : guest.bentotaRsvp;
 
-    const guestDetails = fromHTML('<div class="rsvp-answers"><div><span class="gravity-font">' + guest.firstName +
+    const guestDetails = fromHTML('<div class="row rsvp-answers"><div class="col-6 rsvp-name"><span class="gravity-font">' + guest.firstName +
       '</span><br><span class="maxi-font">' + guest.lastName +
-      '</span></div><div class="radio-buttons rsvp-answers"><label class="sq-radio" for="yes-' + personId +
+      '</span></div><div class="col-6 rsvp-answers"><div class="radio-buttons"><label class="sq-radio" for="yes-' + personId +
       '">Yes<input type="radio" id="yes-' + personId + '" name="rsvp-' + personId +
       '" value="Yes"><span class="checkmark"></span></label><label class="sq-radio" for="no-' + personId +
       '">No<input type="radio" id="no-' + personId + '" name="rsvp-' + personId +
-      '" value="No"><span class="checkmark"></span></label></div></div>');
+      '" value="No"><span class="checkmark"></span></label></div></div></div>');
 
     newForm.appendChild(guestDetails);
 

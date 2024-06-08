@@ -94,7 +94,7 @@ html {
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   html {
-    font-size: 4vw;
+    font-size: 20px;
   }
 }
 
@@ -170,7 +170,7 @@ html {
   /* For mobile phones: */
   .button-col {
     margin-top: 0;
-    font-size: 5vw;
+    font-size: 24px;
     text-align: left;
   }
 }
@@ -370,8 +370,11 @@ html {
   float: left;
 }
 
+.rsvp-name {
+  padding: 15px 0;
+}
+
 .rsvp-answers {
-  display: flex;
   font-size: 72px;
   line-height: 90%;
   margin-bottom: 16px;
@@ -379,7 +382,7 @@ html {
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .rsvp-answers {
-    font-size: 36px;
+    font-size: 48px;
   }
 }
 .rsvp-answers label {
@@ -391,24 +394,28 @@ html {
 }
 
 .radio-buttons {
-  width: 50%;
-  margin-left: auto;
-  margin-right: 0;
+  display: flex;
+  float: right;
 }
 .radio-buttons label {
   padding-top: 50px;
+  margin-left: 140px;
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
+  .radio-buttons {
+    float: unset;
+  }
   .radio-buttons label {
     padding-top: 17px;
+    margin-left: 48px;
+    margin-right: 40px;
   }
 }
 
 /* square radio buttons */
 
 .sq-radio {
-  margin-left: auto;
   display: block;
   position: relative;
   cursor: pointer;
@@ -428,8 +435,8 @@ html {
 /* Create a custom radio button */
 .checkmark {
   position: absolute;
-  top: 35%;
-  left: -8vh;
+  top: 40%;
+  left: -84px;
   width: 60px;
   height: 60px;
   border-radius: 3px;
@@ -439,8 +446,8 @@ html {
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .checkmark {
-    top: 12%;
-    left: -5vh;
+    top: 24%;
+    left: -60px;
     width: 44px;
     height: 44px;
   }
