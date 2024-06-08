@@ -41,7 +41,7 @@
           Learn more
         </div>
         <div class="col-2 button-col noSelect">
-          <div class="rsvp noSelect reverseColor" onclick="showBottomSheet()">
+          <div class="rsvp noSelect reverseColor" onclick="showBottomSheet(false)">
             RSVP
           </div>
         </div>
@@ -66,7 +66,7 @@
           Learn more
         </div>
         <div class="col-2 button-col noSelect">
-          <div class="rsvp noSelect reverseColor" onclick="showBottomSheet()">
+          <div class="rsvp noSelect reverseColor" onclick="showBottomSheet(true)">
             RSVP
           </div>
         </div>
@@ -78,7 +78,7 @@
     </div>
 
     <div id="bottomSheet" class="bottom-sheet reverseColor">
-      <div class="bottom-sheet-content">
+      <div id="bottomSheetContent" class="bottom-sheet-content">
         RSVP
         <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
 
@@ -88,27 +88,18 @@
           <label for="lname" class="event-title"><span class="gravity-font">Last</span> <span class="maxi-font">Name</span></label><br>
           <input type="text" class="event-title color" id="lname" name="lname"><br>
           <p id="output"></p>
-          <button class="rsvp noSelect color" onclick="findMatchingGuest()">ENTER</button>
+
+          <script type="text/javascript">
+            var form = document.getElementById("form");
+            function handleForm(event) { event.preventDefault(); } 
+            form.addEventListener('submit', handleForm);
+          </script>
+          <button id="formButton" class="rsvp noSelect color" onclick="findMatchingGuest(false)">ENTER</button>
         </form>
 
       </div>
     </div>
 
     <div id="modal-overlay" onclick="hideBottomSheet()"></div>
-    <div id="form-modal">
-      <form id="form">
-        <label for="fname">First name:</label>
-        <input type="text" id="fname" name="fname"><br><br>
-        <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="lname"><br><br>
-        <button class="rsvp noSelect" onclick="findMatchingGuest()">Find Guest</button>
-      </form>
-      <script type="text/javascript">
-        var form = document.getElementById("form");
-        function handleForm(event) { event.preventDefault(); } 
-        form.addEventListener('submit', handleForm);
-      </script>
-      <p id="output"></p>
-    </div>
   </body>
 </html>
