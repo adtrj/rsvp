@@ -26,6 +26,11 @@ function fromHTML(html, trim = true) {
   if (result.length === 1) return result[0];
   return result;
 }
+function resizeBottomSheet() {
+  const bottomSheet = document.getElementById('bottomSheet');
+  const bottomSheetContent = document.getElementById('bottomSheetContent');
+  bottomSheet.style.height = (bottomSheetContent.scrollHeight + 28) + "px"; // Don't know why but the submit button isn't being factored in
+}
 async function updateRsvpFormWithGuestInfo(guests, bangalore) {
   const form = document.getElementById("form");
   const parentElement = form.parentElement;
@@ -73,21 +78,20 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
   newForm.appendChild(outputText);
   newForm.appendChild(submitButton);
 
-  // resize bottom sheet to new height
-  const bottomSheet = document.getElementById('bottomSheet');
-  const bottomSheetContent = document.getElementById('bottomSheetContent');
-  bottomSheet.style.height = (bottomSheetContent.scrollHeight + 28) + "px"; // Don't know why but the submit button isn't being factored in
+  resizeBottomSheet();
 }
 async function saveGuestResponse(bangalore) {
   updateText("Saving...");
   const metadata = sessionStorage.getItem("rsvpMetadata");
   const guests = (metadata === null) ? [] : JSON.parse(metadata);
   const promises = [];
+  var anyoneRsvpdGoing = false;
   guests.forEach((guest, index, array) => {
     const personId = guest.firstName + "-" + guest.lastName;
     const rsvpSelected = document.querySelector('input[name="rsvp-' + personId + '"]:checked');
     if (rsvpSelected !== null) {
       rsvp = rsvpSelected.value === "Yes";
+      anyoneRsvpdGoing = anyoneRsvpdGoing || rsvp;
       if (bangalore) {
         guest.bangaloreRsvp = rsvp;
       } else {
@@ -98,6 +102,11 @@ async function saveGuestResponse(bangalore) {
   });
   sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
   await Promise.all(promises);
+  // if (anyoneRsvpdGoing) {
+  //   // TODO
+  // } else {
+  //   // TODO
+  // }
   updateText("Saved");
 }
 async function findMatchingGuest(bangalore) {
@@ -119,7 +128,11 @@ async function findMatchingGuest(bangalore) {
   if (guests.length > 0) {
     updateRsvpFormWithGuestInfo(guests, bangalore);
   } else {
-    updateText("No guest found with name " + fname + " " + lname);
+    updateRsvpFormWithGuestInfo([{
+      "firstName": fname,
+      "lastName": lname
+    }], bangalore);
+    // updateText("No guest found with name " + fname + " " + lname);
   }
 }
 function sendRsvp(guest) {
@@ -152,8 +165,8 @@ function showBottomSheet(bangalore) {
     updateRsvpFormWithGuestInfo(guests, bangalore);
   }
 
-  const bottomSheet = document.getElementById('bottomSheet');
-  bottomSheet.style.height = bottomSheet.scrollHeight + "px";
+  resizeBottomSheet();
+
   document.getElementById("modal-overlay").style.display = "unset";
 }
 function hideBottomSheet() {
