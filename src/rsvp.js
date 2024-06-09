@@ -37,9 +37,7 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
   form.remove();
   parentElement.appendChild(newForm);
 
-  const metadata = JSON.stringify(guests);
-  const metadataInput = fromHTML('<input type="hidden" id="metadata" name="metadata" value=\'' + metadata + '\'>');
-  newForm.appendChild(metadataInput);
+  sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
 
   guests.forEach((guest, index, array) => {
     const personId = guest.firstName + "-" + guest.lastName;
@@ -82,7 +80,8 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
 }
 async function saveGuestResponse(bangalore) {
   updateText("Saving...");
-  const guests = JSON.parse(document.getElementById("metadata").value);
+  const metadata = sessionStorage.getItem("rsvpMetadata");
+  const guests = (metadata === null) ? [] : JSON.parse(metadata);
   const promises = [];
   guests.forEach((guest, index, array) => {
     const personId = guest.firstName + "-" + guest.lastName;
@@ -97,6 +96,7 @@ async function saveGuestResponse(bangalore) {
     }
     promises.push(sendRsvp(guest));
   });
+  sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
   await Promise.all(promises);
   updateText("Saved");
 }
@@ -146,9 +146,9 @@ function showBottomSheet(bangalore) {
   }
 
   // Update the form with the right content if available
-  const metadata = document.getElementById("metadata");
+  const metadata = sessionStorage.getItem("rsvpMetadata");
   if (metadata !== null) {
-    const guests = JSON.parse(metadata.value);
+    const guests = JSON.parse(metadata);
     updateRsvpFormWithGuestInfo(guests, bangalore);
   }
 
