@@ -41,6 +41,7 @@
 
 button {
   all: unset;
+  box-sizing: border-box;
 }
 
  * {
@@ -358,12 +359,17 @@ html {
 }
 
 .bottom-sheet button {
-  float: right;
   border-radius: 5px;
-  padding: 2px 3vw;
-  margin-top: 2vh;
-  margin-bottom: 3vh;
-  width: unset;
+  margin-top: 3vh;
+}
+@media only screen and (min-width: 769px) {
+  /* For desktop only: */
+  .bottom-sheet button {
+    float: right;
+    padding: 2px 3vw;
+    width: unset;
+    margin-bottom: 2vh;
+  }
 }
 
 .bottom-sheet #output {

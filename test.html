@@ -7,39 +7,43 @@
     <title>ADTRJ</title>
     <link rel="icon" type="image/x-icon" href="res/favicon.ico">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/getaway.css">
+    <link rel="stylesheet" href="css/events.css">
     <script src="src/rsvp.js"></script>
-    <script src="src/faq.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   </head>
-  <body onload="loadFAQs('faqs-getaway.txt', 'res/green-expand-plus.png')">
+  <body>
     <div class="header">
       <span class="gravity-font">ADITI</span> <span class="maxi-font">&</span><br>
       <span class="gravity-font">RAHUL'S</span><br>
-      <span class="maxi-font">GetaWay</span>
+      <span class="maxi-font">EveNts</span>
     </div>
     <div class="scroll-tooltip">
-      <img src="res/green-scroll-tooltip.png" alt="Scroll Tooltip" width=80px onclick="scrollToBtf()">
+      <img src="res/red-scroll-tooltip.png" alt="Scroll Tooltip" width=80px onclick="scrollToBtf()">
     </div>
 
     <div class="row event">
       <div class="row event-date-header">
         <div class="col-10">
-          JAN 31, 2025
+          JAN 31-FEB 2, 2025
         </div>
         <div class="col-2 right-col">
-          Friday
+          Weekend
         </div>
       </div>
       <div class="row event-title-interactive">
         <div class="col-8 event-title">
-          <span class="gravity-font">Pizza Party</span><br>
-          <span class="maxi-font">The Villa Grounds</span>
+          <span class="gravity-font">Sri Lanka</span><br>
+          <span class="maxi-font">Getaway</span>
         </div>
-        <div class="col-4 button-col">
-          Mingle time
+        <div class="col-2 learn-more button-col noSelect" onClick="location.href='getaway.html';">
+          Learn more
+        </div>
+        <div class="col-2 button-col noSelect">
+          <div class="rsvp noSelect reverseColor" onclick="showBottomSheet(false)">
+            RSVP
+          </div>
         </div>
       </div>
     </div>
@@ -47,100 +51,56 @@
     <div class="row event">
       <div class="row event-date-header">
         <div class="col-10">
-          FEB 1, 2025
+          FEB 7-9, 2025
         </div>
         <div class="col-2 right-col">
-          Saturday
+          Weekend
         </div>
       </div>
       <div class="row event-title-interactive">
         <div class="col-8 event-title">
-          <span class="gravity-font">Wine & Dine</span><br>
-          <span class="maxi-font">Bentota Beach</span>
+          <span class="gravity-font">Bangalore</span><br>
+          <span class="maxi-font">Reception</span>
         </div>
-        <div class="col-4 button-col">
-          Come ready to dance!
+        <div class="col-2 learn-more button-col noSelect" onClick="location.href='reception.html';">
+          Learn more
+        </div>
+        <div class="col-2 button-col noSelect">
+          <div class="rsvp noSelect reverseColor" onclick="showBottomSheet(true)">
+            RSVP
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="rsvp">
-      <div class="rsvp-button noSelect reverseColor" onclick="showBottomSheet(true)">
-        RSVP
-      </div>
-    </div>
-
-    <div id="faqs"></div>
 
     <div class="footer">
-      <img src="res/green-tiger-bird-beach.png" alt="ADTRJ">
+      <img src="res/red-tiger-bird.png" alt="ADTRJ">
     </div>
 
     <div id="bottomSheet" class="bottom-sheet reverseColor">
-      <div class="bottom-sheet-content">
+      <div id="bottomSheetContent" class="bottom-sheet-content">
         RSVP
         <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
 
         <form id="form">
-          <div class="row rsvp-answers">
-            <div class="col-6 rsvp-name">
-              <span class="gravity-font">Rahul</span><br>
-              <span class="maxi-font">Jaisimha</span>
-            </div>
-            <div class="col-6 rsvp-answers">
-            <div class="radio-buttons">
-              <label class="sq-radio" for="yes-person-invitee-NrWtyR7vkrJ2H9Ox3rx">Yes
-                <input type="radio" id="yes-person-invitee-NrWtyR7vkrJ2H9Ox3rx" name="rsvp-person-invitee-NrWtyR7vkrJ2H9Ox3rx" value="Yes" checked="checked">
-                <span class="checkmark"></span>
-              </label>
-              <label class="sq-radio" for="no-person-invitee-NrWtyR7vkrJ2H9Ox3rx">No
-                <input type="radio" id="no-person-invitee-NrWtyR7vkrJ2H9Ox3rx" name="rsvp-person-invitee-NrWtyR7vkrJ2H9Ox3rx" value="No">
-                <span class="checkmark"></span>
-              </label>
-            </div></div>
+          <label for="fname" class="event-title"><span class="gravity-font">First</span> <span class="maxi-font">Name</span></label><br>
+          <input type="text" class="event-title color" id="fname" name="fname"><br><br>
+          <label for="lname" class="event-title"><span class="gravity-font">Last</span> <span class="maxi-font">Name</span></label><br>
+          <input type="text" class="event-title color" id="lname" name="lname"><br>
+          <div class="row">
+            <p id="output" class="col-6" style="display:none"></p>
+            <button id="formButton" class="col-6 rsvp noSelect color" onclick="findMatchingGuest(false)">ENTER</button>
           </div>
-          <div class="rsvp-and">
-            AND
-          </div>
-          <div class="row rsvp-answers">
-            <div class="col-6 rsvp-name">
-              <span class="gravity-font">Aditi</span><br>
-              <span class="maxi-font">Verma</span>
-            </div>
-            <div class="col-6 rsvp-answers">
-            <div class="radio-buttons">
-              <label class="sq-radio" for="yes-person-invitee-NrWtyV7hSV8I4xiP9dh">Yes
-                <input type="radio" id="yes-person-invitee-NrWtyV7hSV8I4xiP9dh" name="rsvp-person-invitee-NrWtyV7hSV8I4xiP9dh" value="Yes" checked="checked">
-                <span class="checkmark"></span>
-                </label>
-              <label class="sq-radio" for="no-person-invitee-NrWtyV7hSV8I4xiP9dh">No
-                <input type="radio" id="no-person-invitee-NrWtyV7hSV8I4xiP9dh" name="rsvp-person-invitee-NrWtyV7hSV8I4xiP9dh" value="No">
-                <span class="checkmark"></span>
-              </label>
-            </div></div>
-          </div>
-          <p id="output"></p>
-          <button class="rsvp noSelect color" onclick="findMatchingGuest()">ENTER</button>
+          <script type="text/javascript">
+            var form = document.getElementById("form");
+            function handleForm(event) { event.preventDefault(); } 
+            form.addEventListener('submit', handleForm);
+          </script>
         </form>
 
       </div>
     </div>
 
     <div id="modal-overlay" onclick="hideBottomSheet()"></div>
-    <div id="form-modal">
-      <form id="form">
-        <label for="fname">First name:</label>
-        <input type="text" id="fname" name="fname"><br><br>
-        <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="lname"><br><br>
-        <button class="rsvp noSelect" onclick="findMatchingGuest()">Find Guest</button>
-      </form>
-      <script type="text/javascript">
-        var form = document.getElementById("form");
-        function handleForm(event) { event.preventDefault(); } 
-        form.addEventListener('submit', handleForm);
-      </script>
-      <p id="output"></p>
-    </div>
   </body>
 </html>

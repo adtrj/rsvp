@@ -5,6 +5,8 @@ function scrollToBtf() {
 function updateText(text) {
   const para = document.getElementById("output");
   para.innerText = text;
+  para.style.display = "unset";
+  resizeBottomSheet();
 }
 /**
  * @param {String} HTML representing a single element.
@@ -29,7 +31,7 @@ function fromHTML(html, trim = true) {
 function resizeBottomSheet() {
   const bottomSheet = document.getElementById('bottomSheet');
   const bottomSheetContent = document.getElementById('bottomSheetContent');
-  bottomSheet.style.height = (bottomSheetContent.scrollHeight + 28) + "px"; // Don't know why but the submit button isn't being factored in
+  bottomSheet.style.height = bottomSheetContent.scrollHeight + "px";
 }
 async function updateRsvpFormWithGuestInfo(guests, bangalore) {
   const form = document.getElementById("form");
@@ -73,9 +75,8 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
     }
   });
 
-  const outputText = fromHTML('<p id="output"></p>');
-  const submitButton = fromHTML('<button class="rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">ENTER</button>');
-  newForm.appendChild(outputText);
+  const submitButton = fromHTML('<div class="row"><p id="output" class="col-6" style="display:none"></p>' +
+    '<button id="formButton" class="col-6 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">ENTER</button></div>');
   newForm.appendChild(submitButton);
 
   resizeBottomSheet();

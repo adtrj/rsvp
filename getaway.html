@@ -86,14 +86,15 @@
           <input type="text" class="event-title color" id="fname" name="fname"><br><br>
           <label for="lname" class="event-title"><span class="gravity-font">Last</span> <span class="maxi-font">Name</span></label><br>
           <input type="text" class="event-title color" id="lname" name="lname"><br>
-          <p id="output"></p>
-
+          <div class="row">
+            <p id="output" class="col-6" style="display:none"></p>
+            <button id="formButton" class="col-6 rsvp noSelect color" onclick="findMatchingGuest(false)">ENTER</button>
+          </div>
           <script type="text/javascript">
             var form = document.getElementById("form");
             function handleForm(event) { event.preventDefault(); } 
             form.addEventListener('submit', handleForm);
           </script>
-          <button id="formButton" class="rsvp noSelect color" onclick="findMatchingGuest(false)">ENTER</button>
         </form>
 
       </div>
