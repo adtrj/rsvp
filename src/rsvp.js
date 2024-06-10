@@ -114,6 +114,10 @@ async function findMatchingGuest(bangalore) {
   updateText("Loading...");
   const fname = document.getElementById("fname").value;
   const lname = document.getElementById("lname").value;
+  if (!fname || !lname) {
+    updateText("Please provide both first and last name");
+    return;
+  }
   const guests = await new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
     request.open("GET", "https://api.adtrj.com/rsvp/?firstName=" + fname + "&lastName=" + lname);
