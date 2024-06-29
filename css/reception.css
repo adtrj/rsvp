@@ -3,6 +3,13 @@
   color: #8F001B;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-text-fill-color: #8F001B;
+}
+
 .reverseColor {
   background-color: #8F001B;
   color: #FF8D00;
