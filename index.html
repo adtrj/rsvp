@@ -25,7 +25,7 @@
 
     <div class="row event">
       <div class="row event-date-header">
-        <div class="col-10">
+        <div class="col-10 spaced-font">
           JAN 31-FEB 2, 2025
         </div>
         <div class="col-2 right-col">
@@ -50,7 +50,7 @@
 
     <div class="row event">
       <div class="row event-date-header">
-        <div class="col-10">
+        <div class="col-10 spaced-font">
           FEB 7-9, 2025
         </div>
         <div class="col-2 right-col">
@@ -79,7 +79,7 @@
 
     <div id="bottomSheet" class="bottom-sheet reverseColor">
       <div id="bottomSheetContent" class="bottom-sheet-content">
-        RSVP
+        <span class="spaced-font">RSVP</span>
         <span id="closeBtn" class="close-btn" onclick="hideBottomSheet()">&times;</span>
 
         <form id="form">
@@ -88,7 +88,10 @@
           <label for="lname" class="event-title"><span class="gravity-font">Last</span> <span class="maxi-font">Name</span></label>
           <input type="text" class="event-title color" id="lname" name="lname">
           <div class="row">
-            <p id="output" class="col-6" style="display:none"></p>
+            <div id="output" class="col-6" style="display:none">
+              <p id="outputTitle" class="spaced-font" style="display:unset"></p><br>
+              <p id="outputSubtitle" style="display:unset"></p>
+            </div>
             <button id="formButton" class="col-6 rsvp noSelect color" onclick="findMatchingGuest(false)">ENTER</button>
           </div>
           <script type="text/javascript">

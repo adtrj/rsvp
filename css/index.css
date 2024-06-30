@@ -23,6 +23,10 @@
   font-family: "ABCMaxi", sans-serif;
 }
 
+.spaced-font {
+  letter-spacing: 1px;
+}
+
 /* Responsive UI
    ============= */
 
@@ -95,7 +99,7 @@ html {
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   html {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 
@@ -386,6 +390,12 @@ input:-webkit-autofill:active{
   padding: 0;
   margin-top: 0;
 }
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .bottom-sheet #output {
+    margin-bottom: 3vh;
+  }
+}
 
 .rsvp-name {
   padding: 15px 0;
@@ -400,6 +410,7 @@ input:-webkit-autofill:active{
   /* For mobile phones: */
   .rsvp-answers {
     font-size: 48px;
+    margin-bottom: 12px;
   }
 }
 .rsvp-answers label {

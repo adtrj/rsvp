@@ -2,10 +2,17 @@ function scrollToBtf() {
   const firstEvent = document.getElementsByClassName("event")[0];
   firstEvent.scrollIntoView({ behavior: "smooth", block: "start" });
 }
-function updateText(text) {
-  const para = document.getElementById("output");
-  para.innerText = text;
-  para.style.display = "unset";
+function updateText(text, subText) {
+  const outputDiv = document.getElementById("output");
+  const outputTitle = document.getElementById("outputTitle");
+  const outputSubtitle = document.getElementById("outputSubtitle");
+  outputTitle.innerText = text;
+  if (typeof subText !== 'undefined') {
+    outputSubtitle.innerText = subText;
+  } else {
+    outputSubtitle.innerText = "";
+  }
+  outputDiv.style.display = "unset";
   resizeBottomSheet();
 }
 /**
@@ -70,19 +77,21 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
     }
 
     if (index !== array.length - 1){ 
-      const andDelimiter = fromHTML('<div class="rsvp-and">AND</div>');
+      const andDelimiter = fromHTML('<div class="rsvp-and spaced-font">AND</div>');
       newForm.appendChild(andDelimiter);
     }
   });
 
-  const submitButton = fromHTML('<div class="row"><p id="output" class="col-6" style="display:none"></p>' +
+  const submitButton = fromHTML('<div class="row"><div id="output" class="col-6" style="display:none">' +
+    '<p id="outputTitle" class="spaced-font" style="display:unset"></p><br>' +
+    '<p id="outputSubtitle" style="display:unset"></p></div>' +
     '<button id="formButton" class="col-6 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">ENTER</button></div>');
   newForm.appendChild(submitButton);
 
   resizeBottomSheet();
 }
 async function saveGuestResponse(bangalore) {
-  updateText("Saving...");
+  updateText("SAVING...");
   const metadata = sessionStorage.getItem("rsvpMetadata");
   const guests = (metadata === null) ? [] : JSON.parse(metadata);
   const promises = [];
@@ -103,19 +112,18 @@ async function saveGuestResponse(bangalore) {
   });
   sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
   await Promise.all(promises);
-  // if (anyoneRsvpdGoing) {
-  //   // TODO
-  // } else {
-  //   // TODO
-  // }
-  updateText("Saved");
+  if (anyoneRsvpdGoing) {
+    updateText("THANKS AND SEE YOU SOON.");
+  } else {
+    updateText("THANKS,", "You will be missed");
+  }
 }
 async function findMatchingGuest(bangalore) {
   updateText("Loading...");
   const fname = document.getElementById("fname").value;
   const lname = document.getElementById("lname").value;
   if (!fname || !lname) {
-    updateText("Please provide both first and last name");
+    updateText("Please provide both first and last name!");
     return;
   }
   const guests = await new Promise((resolve, reject) => {
