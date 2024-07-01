@@ -40,7 +40,7 @@ function resizeBottomSheet() {
   const bottomSheetContent = document.getElementById('bottomSheetContent');
   bottomSheet.style.height = bottomSheetContent.scrollHeight + "px";
 }
-async function updateRsvpFormWithGuestInfo(guests, bangalore) {
+async function updateRsvpFormWithGuestInfo(bangalore, guests) {
   const form = document.getElementById("form");
   const parentElement = form.parentElement;
   const newForm = fromHTML('<form id="form"></form>');
@@ -51,7 +51,14 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
   form.remove();
   parentElement.appendChild(newForm);
 
-  sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
+  if (typeof guests === 'undefined') {
+    const metadata = sessionStorage.getItem("rsvpMetadata");
+    if (metadata !== null) {
+      guests = JSON.parse(metadata);
+    }
+  } else {
+    sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
+  }
 
   guests.forEach((guest, index, array) => {
     const personId = guest.firstName + "-" + guest.lastName;
@@ -82,10 +89,11 @@ async function updateRsvpFormWithGuestInfo(guests, bangalore) {
     }
   });
 
-  const submitButton = fromHTML('<div class="row"><div id="output" class="col-6" style="display:none">' +
-    '<p id="outputTitle" class="spaced-font" style="display:unset"></p><br>' +
-    '<p id="outputSubtitle" style="display:unset"></p></div>' +
-    '<button id="formButton" class="col-6 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">ENTER</button></div>');
+  const submitButton = fromHTML('<div class="row formInteraction"><div id="output" class="col-6" style="display:none">' +
+    '<span id="outputTitle" class="spaced-font" style="display:unset"></span><br>' +
+    '<span id="outputSubtitle" style="display:unset"></span></div>' +
+    '<div id="cta" class="cta">' +
+    '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">DONE</button></div></div>');
   newForm.appendChild(submitButton);
 
   resizeBottomSheet();
@@ -113,9 +121,16 @@ async function saveGuestResponse(bangalore) {
   sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
   await Promise.all(promises);
   if (anyoneRsvpdGoing) {
-    updateText("THANKS AND SEE YOU SOON.");
+    if (!bangalore) {
+      const travelInfoButton = fromHTML('<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="addTravelInfo(' + bangalore + ')">ADD TRAVEL INFO</button>');
+      const cta = document.getElementById("cta");
+      cta.insertBefore(travelInfoButton, cta.children[0]);
+      updateText("THANKS AND SEE YOU SOON.", "We have a taxi company to get everyone from Colombo airport to the venue in Bentota. Add your travel info to help plan your commute.");
+    } else {
+      updateText("THANKS AND SEE YOU SOON.");
+    }
   } else {
-    updateText("THANKS,", "You will be missed");
+    updateText("THANKS, YOU WILL BE MISSED.");
   }
 }
 async function findMatchingGuest(bangalore) {
@@ -139,12 +154,12 @@ async function findMatchingGuest(bangalore) {
     request.send();
   });
   if (guests.length > 0) {
-    updateRsvpFormWithGuestInfo(guests, bangalore);
+    updateRsvpFormWithGuestInfo(bangalore, guests);
   } else {
-    updateRsvpFormWithGuestInfo([{
+    updateRsvpFormWithGuestInfo(bangalore, [{
       "firstName": fname,
       "lastName": lname
-    }], bangalore);
+    }]);
     // updateText("No guest found with name " + fname + " " + lname);
   }
 }
@@ -164,6 +179,45 @@ function sendRsvp(guest) {
     request.send(body);
   });
 }
+function addTravelInfo(bangalore) {
+  const form = document.getElementById("form");
+  const parentElement = form.parentElement;
+  const newForm = fromHTML('<form id="form"></form>');
+
+  function handleForm(event) { event.preventDefault(); } 
+  newForm.addEventListener('submit', handleForm);
+
+  form.remove();
+  parentElement.appendChild(newForm);
+
+  const guests = JSON.parse(sessionStorage.getItem("rsvpMetadata"));
+
+  guests.forEach((guest, index, array) => {
+    const personId = guest.firstName + "-" + guest.lastName;
+    const rsvp = bangalore ? guest.bangaloreRsvp : guest.bentotaRsvp;
+
+    const guestDetails = fromHTML('<div class="row rsvp-answers"><div class="col-6 rsvp-name"><span class="gravity-font">' + guest.firstName +
+      '</span><br><span class="maxi-font">' + guest.lastName +
+      '</span></div></div>');
+
+    newForm.appendChild(guestDetails);
+
+    if (index !== array.length - 1){ 
+      const andDelimiter = fromHTML('<div class="rsvp-and spaced-font">+</div>');
+      newForm.appendChild(andDelimiter);
+    }
+  });
+
+  const submitButton = fromHTML('<div class="row formInteraction"><div id="output" class="col-6" style="display:none">' +
+    '<span id="outputTitle" class="spaced-font" style="display:unset"></span><br>' +
+    '<span id="outputSubtitle" style="display:unset"></span></div>' +
+    '<div id="cta" class="cta">' +
+    '<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="updateRsvpFormWithGuestInfo(' + bangalore + ')">&larr; BACK TO RSVP</button>' +
+    '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">CONFIRM</button></div></div>');
+  newForm.appendChild(submitButton);
+
+  resizeBottomSheet();
+}
 function showBottomSheet(bangalore) {
   // Update the find guest button with whether or not they are rsvp-ing for the Bangalore event
   const button = document.getElementById('formButton');
@@ -175,7 +229,7 @@ function showBottomSheet(bangalore) {
   const metadata = sessionStorage.getItem("rsvpMetadata");
   if (metadata !== null) {
     const guests = JSON.parse(metadata);
-    updateRsvpFormWithGuestInfo(guests, bangalore);
+    updateRsvpFormWithGuestInfo(bangalore, guests);
   }
 
   resizeBottomSheet();

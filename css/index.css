@@ -95,6 +95,7 @@ html {
   font-family: "Inter", sans-serif;
   font-size: 28px;
   font-weight: 600;
+  text-underline-offset: 3px;
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
@@ -200,6 +201,28 @@ html {
     font-size: 7vw;
     margin: 5vw;
   }
+}
+
+.formInteraction {
+  font-size: 20px;
+}
+@media only screen and (min-width: 769px) {
+  /* For desktop only: */
+  .formInteraction {
+    font-size: 28px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  /* For desktop only: */
+  .cta {
+    float: right;
+  }
+}
+
+.cta1 {
+  text-decoration: underline;
+  margin-bottom: 2vh;
 }
 
 .learn-more {
@@ -374,14 +397,15 @@ input:-webkit-autofill:active{
 
 .bottom-sheet button {
   border-radius: 5px;
+  font-size: 20px;
 }
 @media only screen and (min-width: 769px) {
   /* For desktop only: */
   .bottom-sheet button {
-    float: right;
     padding: 2px 3vw;
     width: unset;
     margin-bottom: 2vh;
+    font-size: 28px;
   }
 }
 
@@ -394,6 +418,16 @@ input:-webkit-autofill:active{
   /* For mobile phones: */
   .bottom-sheet #output {
     margin-bottom: 3vh;
+  }
+}
+
+#outputSubtitle {
+  font-size: 20px;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  #outputSubtitle {
+    font-size: 14px;
   }
 }
 
