@@ -212,7 +212,7 @@ function addTravelInfo(bangalore) {
     '<span id="outputTitle" class="spaced-font" style="display:unset"></span><br>' +
     '<span id="outputSubtitle" style="display:unset"></span></div>' +
     '<div id="cta" class="cta">' +
-    '<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="updateRsvpFormWithGuestInfo(' + bangalore + ')">&larr; BACK TO RSVP</button>' +
+    '<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="updateRsvpFormWithGuestInfo(' + bangalore + ')"><- BACK TO RSVP</button>' +
     '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">CONFIRM</button></div></div>');
   newForm.appendChild(submitButton);
 
