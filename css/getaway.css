@@ -1,6 +1,7 @@
 .color {
   background-color: #00591A;
   color: #8CDBA7;
+  border-color: #8CDBA7;
 }
 
 input:-webkit-autofill,
@@ -13,6 +14,7 @@ input:-webkit-autofill:active{
 .reverseColor {
   background-color: #8CDBA7;
   color: #00591A;
+  border-color: #00591A;
 }
 
 .sq-radio .checkmark:after {

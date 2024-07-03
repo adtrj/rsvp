@@ -104,6 +104,10 @@ async function saveGuestResponse(bangalore) {
   const guests = (metadata === null) ? [] : JSON.parse(metadata);
   const promises = [];
   var anyoneRsvpdGoing = false;
+
+  const arrivalInput = document.getElementById("arrival");
+  const departureInput = document.getElementById("departure");
+  const updatingTravelInfo = arrivalInput && departureInput;
   guests.forEach((guest, index, array) => {
     const personId = guest.firstName + "-" + guest.lastName;
     const rsvpSelected = document.querySelector('input[name="rsvp-' + personId + '"]:checked');
@@ -116,21 +120,34 @@ async function saveGuestResponse(bangalore) {
         guest.bentotaRsvp = rsvp;
       }
     }
+    if (updatingTravelInfo) {
+      if (arrivalInput.value) {
+        guest.landingTime = arrivalInput.value;
+      }
+      if (departureInput.value) {
+        guest.departureTime = departureInput.value;
+      }
+    }
     promises.push(sendRsvp(guest));
   });
   sessionStorage.setItem("rsvpMetadata", JSON.stringify(guests));
   await Promise.all(promises);
-  if (anyoneRsvpdGoing) {
-    if (!bangalore) {
-      const travelInfoButton = fromHTML('<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="addTravelInfo(' + bangalore + ')">ADD TRAVEL INFO</button>');
-      const cta = document.getElementById("cta");
-      cta.insertBefore(travelInfoButton, cta.children[0]);
-      updateText("THANKS AND SEE YOU SOON.", "We have a taxi company to get everyone from Colombo airport to the venue in Bentota. Add your travel info to help plan your commute.");
-    } else {
-      updateText("THANKS AND SEE YOU SOON.");
-    }
+
+  if (updatingTravelInfo) {
+    updateText("THANKS AND SEE YOU SOON.", "Please come back and update your flight details here if they change.");
   } else {
-    updateText("THANKS, YOU WILL BE MISSED.");
+    if (anyoneRsvpdGoing) {
+      if (!bangalore) {
+        const travelInfoButton = fromHTML('<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="addTravelInfo(' + bangalore + ')">ADD TRAVEL INFO</button>');
+        const cta = document.getElementById("cta");
+        cta.insertBefore(travelInfoButton, cta.children[0]);
+        updateText("THANKS AND SEE YOU SOON.", "We have a taxi company to get everyone from Colombo airport to the venue in Bentota. Add your travel info to help plan your commute.");
+      } else {
+        updateText("THANKS AND SEE YOU SOON.");
+      }
+    } else {
+      updateText("THANKS, YOU WILL BE MISSED.");
+    }
   }
 }
 async function findMatchingGuest(bangalore) {
@@ -192,21 +209,42 @@ function addTravelInfo(bangalore) {
 
   const guests = JSON.parse(sessionStorage.getItem("rsvpMetadata"));
 
-  guests.forEach((guest, index, array) => {
+  const attendingGuests = guests.filter((guest) => guest.bentotaRsvp);
+
+  const travelingGuestsDiv = fromHTML('<div class="travelingGuests"></div>');
+  newForm.appendChild(travelingGuestsDiv);
+
+  attendingGuests.forEach((guest, index, array) => {
     const personId = guest.firstName + "-" + guest.lastName;
     const rsvp = bangalore ? guest.bangaloreRsvp : guest.bentotaRsvp;
 
-    const guestDetails = fromHTML('<div class="row rsvp-answers"><div class="col-6 rsvp-name"><span class="gravity-font">' + guest.firstName +
-      '</span><br><span class="maxi-font">' + guest.lastName +
-      '</span></div></div>');
+    const guestDetails = fromHTML('<div class="row rsvp-answers" style="margin-bottom:0"><div class="col-6" style="padding:0"><span class="gravity-font">' +
+      guest.firstName + '</span></div></div>');
+    travelingGuestsDiv.appendChild(guestDetails);
 
-    newForm.appendChild(guestDetails);
-
-    if (index !== array.length - 1){ 
-      const andDelimiter = fromHTML('<div class="rsvp-and spaced-font">+</div>');
-      newForm.appendChild(andDelimiter);
+    if (index !== array.length - 1){
+      const andDelimiter = fromHTML('<div class="rsvp-answers spaced-font">+</div>');
+      travelingGuestsDiv.appendChild(andDelimiter);
     }
   });
+
+  const flightDetails = fromHTML('<div>' +
+    '<label for="arrival" class="event-title"><span class="gravity-font">Flight</span> <span class="maxi-font">arrives</span></label>' +
+    '<textarea class="reverseColor flightDetails" id="arrival" name="arrival" placeholder="Example: 12:55pm, Jan 31, Flight 6E 1167"></textarea>' +
+    '<label for="departure" class="event-title"><span class="gravity-font">Flight</span> <span class="maxi-font">departs</span></label>' +
+    '<textarea class="reverseColor flightDetails" id="departure" name="departure" placeholder="Example: 1:55pm, Feb 2, Flight 6E 1168"></textarea></div>');
+  newForm.appendChild(flightDetails);
+
+  const arrivalText = attendingGuests[0].landingTime;
+  const departureText = attendingGuests[0].departureTime;
+  const arrivalInput = document.getElementById("arrival");
+  const departureInput = document.getElementById("departure");
+  if (arrivalText) {
+    arrivalInput.value = arrivalText;
+  }
+  if (departureText) {
+    departureInput.value = departureText;
+  }
 
   const submitButton = fromHTML('<div class="row formInteraction"><div id="output" class="col-6" style="display:none">' +
     '<span id="outputTitle" class="spaced-font" style="display:unset"></span><br>' +
@@ -216,7 +254,7 @@ function addTravelInfo(bangalore) {
     '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">CONFIRM</button></div></div>');
   newForm.appendChild(submitButton);
 
-  resizeBottomSheet();
+  updateText("IT'S OK IF YOU DON'T HAVE YOUR FLIGHT DETAILS YET.", "Come back to this page once you have them or if they change.");
 }
 function showBottomSheet(bangalore) {
   // Update the find guest button with whether or not they are rsvp-ing for the Bangalore event
@@ -229,7 +267,8 @@ function showBottomSheet(bangalore) {
   const metadata = sessionStorage.getItem("rsvpMetadata");
   if (metadata !== null) {
     const guests = JSON.parse(metadata);
-    updateRsvpFormWithGuestInfo(bangalore, guests);
+    addTravelInfo(bangalore); // TODO: revert
+    // updateRsvpFormWithGuestInfo(bangalore, guests);
   }
 
   resizeBottomSheet();
