@@ -267,8 +267,8 @@ function showBottomSheet(bangalore) {
   const metadata = sessionStorage.getItem("rsvpMetadata");
   if (metadata !== null) {
     const guests = JSON.parse(metadata);
-    addTravelInfo(bangalore); // TODO: revert
-    // updateRsvpFormWithGuestInfo(bangalore, guests);
+    // addTravelInfo(bangalore);
+    updateRsvpFormWithGuestInfo(bangalore, guests);
   }
 
   resizeBottomSheet();
