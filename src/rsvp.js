@@ -267,6 +267,12 @@ function showBottomSheet(bangalore) {
     button.onclick = function() { findMatchingGuest(bangalore); };
   }
 
+  // Update the bottom sheet header based on the event
+  const rsvpHeader = document.getElementById('rsvpHeader');
+  if (rsvpHeader != null) {
+    rsvpHeader.innerText = bangalore ? "RSVP: Bangalore" : "RSVP: Sri Lanka";
+  }
+
   // Update the form with the right content if available
   const metadata = sessionStorage.getItem("rsvpMetadata");
   if (metadata !== null) {

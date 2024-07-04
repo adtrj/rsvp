@@ -4,6 +4,10 @@
   border-color: #8F001B;
 }
 
+a {
+  color: #8F001B;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 

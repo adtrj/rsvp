@@ -121,6 +121,9 @@ html {
 .scroll-tooltip {
   text-align: center;
   margin-bottom: 8vh;
+  img {
+    cursor: pointer;
+  }
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */

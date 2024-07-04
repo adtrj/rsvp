@@ -1,5 +1,5 @@
 Where is the venue?
-	<a href="https://www.kkcollection.com/the-villa-bentota">The Villa Bentota</a> We'll have the whole villa for two nights, so we have a ton of space to party and chill.
+	<a target="_blank" href="https://www.kkcollection.com/the-villa-bentota">The Villa Bentota</a> We'll have the whole villa for two nights, so we have a ton of space to party and chill.
 How do I get there?
 	We've got you covered! Bentota is about 1.5 hours away from the Colombo airport and there isn't a direct train from the airport to Bentota. Luckily, we're working with a taxi company to pick you up when you arrive at Bandaranaike International Airport (Colombo). Just update your RSVP with your flight arrival details when you have them. You may be sharing a car/van with other guests arriving at the same time.
 Where should I stay?
