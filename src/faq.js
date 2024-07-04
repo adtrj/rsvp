@@ -25,12 +25,14 @@ async function loadFAQs(faqTxt, expandButtonPng) {
     .then((res) => res.text())
     .then((text) => {
       const lines = text.split(/\r?\n|\r|\n/g).map((line) => line.trim());
-      const faqs = lines.reduce((accumulator, currentValue, currentIndex, array) => {
-        if (currentIndex % 2 === 0) {
-          accumulator.push(array.slice(currentIndex, currentIndex + 2));
-        }
-        return accumulator;
-      }, []);
+      const faqs = lines
+        .filter((line) => line)
+        .reduce((accumulator, currentValue, currentIndex, array) => {
+          if (currentIndex % 2 === 0) {
+            accumulator.push(array.slice(currentIndex, currentIndex + 2));
+          }
+          return accumulator;
+        }, []);
 
       faqs.forEach((faq) => {
         const row = fromHTML('<div class="accordion">' +
