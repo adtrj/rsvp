@@ -138,6 +138,10 @@ async function saveGuestResponse(bangalore) {
   } else {
     if (anyoneRsvpdGoing) {
       if (!bangalore) {
+        const extraButton = document.getElementById("extraButton");
+        if (extraButton) {
+          extraButton.remove();
+        }
         const travelInfoButton = fromHTML('<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="addTravelInfo(' + bangalore + ')">ADD TRAVEL INFO</button>');
         const cta = document.getElementById("cta");
         cta.insertBefore(travelInfoButton, cta.children[0]);

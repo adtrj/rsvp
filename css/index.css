@@ -38,6 +38,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    cursor: pointer;
 }
 .noSelect:focus {
     outline: none !important;
@@ -87,8 +88,7 @@ button {
    =========== */
 
 html, body {
-    max-width: 100%;
-    overflow-x: hidden;
+  max-width: 100%;
 }
 
 html {
