@@ -93,6 +93,7 @@ async function updateRsvpFormWithGuestInfo(bangalore, guests) {
     '<span id="outputTitle" class="spaced-font" style="display:unset"></span><br>' +
     '<span id="outputSubtitle" style="display:unset"></span></div>' +
     '<div id="cta" class="cta">' +
+    (shouldShowTravelInfoButton(bangalore, guests) ? createTravelInfoButtonHtml(bangalore) : '') +
     '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">DONE</button></div></div>');
   newForm.appendChild(submitButton);
 
@@ -142,7 +143,7 @@ async function saveGuestResponse(bangalore) {
         if (extraButton) {
           extraButton.remove();
         }
-        const travelInfoButton = fromHTML('<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="addTravelInfo(' + bangalore + ')">ADD TRAVEL INFO</button>');
+        const travelInfoButton = fromHTML(createTravelInfoButtonHtml(bangalore));
         const cta = document.getElementById("cta");
         cta.insertBefore(travelInfoButton, cta.children[0]);
         updateText("THANKS AND SEE YOU SOON.", "We have a taxi company to get everyone from Colombo airport to the venue in Bentota. Add your travel info to help plan your commute.");
@@ -259,6 +260,20 @@ function addTravelInfo(bangalore) {
   newForm.appendChild(submitButton);
 
   updateText("IT'S OK IF YOU DON'T HAVE YOUR FLIGHT DETAILS YET.", "Come back to this page once you have them or if they change.");
+}
+function shouldShowTravelInfoButton (bangalore, guests) {
+  if (guests !== null) {
+    if (!bangalore) {
+      const rsvpCount = guests.filter((guest) => guest.bentotaRsvp).length;
+      if (rsvpCount > 0) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function createTravelInfoButtonHtml(bangalore) {
+  return bangalore ? '' : '<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="addTravelInfo(' + bangalore + ')">ADD TRAVEL INFO</button>';
 }
 function showBottomSheet(bangalore) {
   // Update the find guest button with whether or not they are rsvp-ing for the Bangalore event
