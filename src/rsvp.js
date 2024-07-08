@@ -94,7 +94,7 @@ async function updateRsvpFormWithGuestInfo(bangalore, guests) {
     '<span id="outputSubtitle" style="display:unset"></span></div>' +
     '<div id="cta" class="cta">' +
     (shouldShowTravelInfoButton(bangalore, guests) ? createTravelInfoButtonHtml(bangalore) : '') +
-    '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">DONE</button></div></div>');
+    '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">SAVE</button></div></div>');
   newForm.appendChild(submitButton);
 
   resizeBottomSheet();
@@ -151,6 +151,10 @@ async function saveGuestResponse(bangalore) {
         updateText("THANKS AND SEE YOU SOON.");
       }
     } else {
+      const extraButton = document.getElementById("extraButton");
+      if (extraButton) {
+        extraButton.remove();
+      }
       updateText("THANKS, YOU WILL BE MISSED.");
     }
   }
@@ -256,7 +260,7 @@ function addTravelInfo(bangalore) {
     '<span id="outputSubtitle" style="display:unset"></span></div>' +
     '<div id="cta" class="cta">' +
     '<button id="extraButton" class="col-3 rsvp noSelect reverseColor cta1" onclick="updateRsvpFormWithGuestInfo(' + bangalore + ')"><- BACK TO RSVP</button>' +
-    '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">CONFIRM</button></div></div>');
+    '<button id="formButton" class="col-3 rsvp noSelect color" onclick="saveGuestResponse(' + bangalore + ')">SAVE</button></div></div>');
   newForm.appendChild(submitButton);
 
   updateText("IT'S OK IF YOU DON'T HAVE YOUR FLIGHT DETAILS YET.", "Come back to this page once you have them or if they change.");
