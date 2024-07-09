@@ -101,6 +101,9 @@ async function updateRsvpFormWithGuestInfo(bangalore, guests) {
 }
 async function saveGuestResponse(bangalore) {
   updateText("SAVING...");
+
+  disableFormButton();
+
   const metadata = sessionStorage.getItem("rsvpMetadata");
   const guests = (metadata === null) ? [] : JSON.parse(metadata);
   const promises = [];
@@ -308,4 +311,16 @@ function hideBottomSheet() {
   document.getElementById('bottomSheet').classList.remove('open');
   bottomSheet.style.height = "0";
   document.getElementById("modal-overlay").style.display = "none";
+}
+function enableFormButton() {
+  const formButton = document.getElementById("formButton");
+  if (formButton) {
+    formButton.disabled = false;
+  }
+}
+function disableFormButton() {
+  const formButton = document.getElementById("formButton");
+  if (formButton) {
+    formButton.disabled = true;
+  }
 }

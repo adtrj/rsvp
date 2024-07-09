@@ -48,6 +48,9 @@ button {
   all: unset;
   box-sizing: border-box;
 }
+button:disabled {
+  cursor: unset;
+}
 
  * {
   box-sizing: border-box;

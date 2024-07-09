@@ -25,6 +25,10 @@ textarea::placeholder {
   color: rgba(143, 0, 27, 0.5);
 }
 
+button:disabled {
+  background-color: rgba(143, 0, 27, 0.5);
+}
+
 .button-col {
   text-align: center;
   cursor: pointer;
