@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" class="color">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ADTRJ</title>
+    <link rel="icon" type="image/x-icon" href="res/favicon.ico">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Include the CryptoJS library for hashing the user id before sending it to the PuzzleMe server. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- Include the javascript library for embedding this puzzle. -->
+    <script id="pm-script" src="https://puzzleme.amuselabs.com/pmm/js/puzzleme-embed.js"></script>
+    <!-- Specify the Amuse Labs server name from where the puzzles will be served and trigger the embed flow. -->
+    <script>
+        PM_Config.PM_BasePath = "https://puzzleme.amuselabs.com/pmm/";
+    </script>
+    <!-- Specifies the puzzle to be embedded on the page. If you want to render multiple games on your page then you can copy paste it multiple times. -->
+    <div style="position: relative; text-align: center;"><div class="pm-embed-div" data-id="dce61374" data-set="44983d4c8859a97d0f58df4e999f86633cdcf5c1d8c51f2d1c668515637c3970" data-puzzleType="crossword" data-height="1000px" data-mobileMargin="10px"></div></div>
+  </body>
+</html>
